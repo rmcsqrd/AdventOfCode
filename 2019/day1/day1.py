@@ -25,6 +25,17 @@ def FuelReq(mass):
 
     return mass
 
+def FuelReqWishful(mass):
+    fuel_mass = FuelReq(mass)
+    fuel_remainder = fuel_mass
+    while fuel_remainder > 0:
+        # print(fuel_remainder)  # uncomment to see math
+        fuel_mass += fuel_remainder
+        fuel_remainder = FuelReq(fuel_remainder)
+
+    fuel_mass = fuel_mass - FuelReq(mass)  # got lazy, while loop was double counting first value
+    return fuel_mass
+
 
 if __name__ == '__main__':
 
@@ -47,7 +58,19 @@ if __name__ == '__main__':
     print('Part 1 Result = ',massSum)
 
     ## PART 2
-    test_data [14, ]
+    # check test data
+    test_data = [14, 1969, 100756]  # results should be [2, 966, 50346]
+    test_results = []
+    for mass in test_data:
+        test_results.append(FuelReqWishful(mass))
+
+    # check real data
+    results = []
+    for mass in data:
+        results.append(FuelReqWishful(mass))
+    massSum_wishful = sum(results)
+
+    print('Part 2 Result = ',massSum_wishful)
 
 
 
